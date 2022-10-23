@@ -1,0 +1,30 @@
+{% load django_bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<h1>결과창</h1>
+  <p>내가 친 텍스트: {{ data.content }}</p>
+  <hr>
+  {% for line in text.sentences %}
+    <p>문장: {{ line.content }}</p>
+    {% if  line.sentiment == 'positive' %}
+      <p>감정상태는 긍정적</p>
+    {% elif line.sentiment == 'negative' %}
+      <p>감정상태는 부정적</p>
+    {% else %}
+      <p>감정상태는 중립적</p>
+    {% endif %}
+    <p>문장의 신뢰도: {{ line.confidence }}</p>
+    {% comment %} <p>감정분석 구간: {{ line.content.offset }}부터 {{ line.content.length }}글자 만큼 분석</p> {% endcomment %}
+  <hr>
+  {% endfor %}
+  <h1>전체 문장의 감정상태는 {{ text.document.sentiment }}이다.</h1>
+</body>
+</html>
