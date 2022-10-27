@@ -24,6 +24,8 @@ import json
 #         print('죄송합니다. 정확히 인식하지 못했습니다.')
 
 
+def create(request):
+    return render(request, 'create.html')
 
 def index(request):
 
