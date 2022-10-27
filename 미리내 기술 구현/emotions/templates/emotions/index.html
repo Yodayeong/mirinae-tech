@@ -1,3 +1,4 @@
+{% load static %}
 {% load django_bootstrap5 %}
 
 <!DOCTYPE html>
@@ -7,24 +8,28 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">  
 </head>
 <body>
-<h1>결과창</h1>
-  <p>내가 친 텍스트: {{ data.content }}</p>
-  <hr>
-  {% for line in text.sentences %}
-    <p>문장: {{ line.content }}</p>
-    {% if  line.sentiment == 'positive' %}
-      <p>감정상태는 긍정적</p>
-    {% elif line.sentiment == 'negative' %}
-      <p>감정상태는 부정적</p>
-    {% else %}
-      <p>감정상태는 중립적</p>
-    {% endif %}
-    <p>문장의 신뢰도: {{ line.confidence }}</p>
-    {% comment %} <p>감정분석 구간: {{ line.content.offset }}부터 {{ line.content.length }}글자 만큼 분석</p> {% endcomment %}
-  <hr>
-  {% endfor %}
-  <h1>전체 문장의 감정상태는 {{ text.document.sentiment }}이다.</h1>
+  <img class="fixed-top" src="{% static 'emotions/img/home.png' %}" alt="" style="width:100%; height:100%; z-index : -2;">
+  <div class="text-center mt-5 text-white">
+    <h1>결과창</h1>
+    <p>내가 친 텍스트: {{ data.content }}</p>
+    <hr>
+    {% for line in text.sentences %}
+      <p>문장: {{ line.content }}</p>
+      {% if  line.sentiment == 'positive' %}
+        <p>감정상태는 긍정적</p>
+      {% elif line.sentiment == 'negative' %}
+        <p>감정상태는 부정적</p>
+      {% else %}
+        <p>감정상태는 중립적</p>
+      {% endif %}
+      <p>문장의 신뢰도: {{ line.confidence }}</p>
+      {% comment %} <p>감정분석 구간: {{ line.content.offset }}부터 {{ line.content.length }}글자 만큼 분석</p> {% endcomment %}
+    <hr>
+    {% endfor %}
+    <h1>전체 문장의 감정상태는 {{ text.document.sentiment }}이다.</h1>
+  </div>
 </body>
 </html>
