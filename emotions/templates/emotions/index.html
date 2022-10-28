@@ -12,24 +12,13 @@
 </head>
 <body>
   <img class="fixed-top" src="{% static 'emotions/img/home.png' %}" alt="" style="width:100%; height:100%; z-index : -2;">
-  <div class="text-center mt-5 text-white">
-    <h1>결과창</h1>
-    <p>내가 친 텍스트: {{ data.content }}</p>
-    <hr>
-    {% for line in text.sentences %}
-      <p>문장: {{ line.content }}</p>
-      {% if  line.sentiment == 'positive' %}
-        <p>감정상태는 긍정적</p>
-      {% elif line.sentiment == 'negative' %}
-        <p>감정상태는 부정적</p>
-      {% else %}
-        <p>감정상태는 중립적</p>
-      {% endif %}
-      <p>문장의 신뢰도: {{ line.confidence }}</p>
-      {% comment %} <p>감정분석 구간: {{ line.content.offset }}부터 {{ line.content.length }}글자 만큼 분석</p> {% endcomment %}
-    <hr>
-    {% endfor %}
-    <h1>전체 문장의 감정상태는 {{ text.document.sentiment }}이다.</h1>
-  </div>
+  
+  <div class="text-center">
+    <img src="{% static 'emotions/img/comment.png' %}" alt="" style="z-index : 2; width: 300px; height:300px;">
+    <div class="comment" style="font-size: 2rem; position:fixed; right:80px; top:100px; z-index: 4;">
+      <p style="margin:0;">대화 해 주셔서</p>
+      <p>감사해요!</p>
+    </div>
+  <div>
 </body>
 </html>
