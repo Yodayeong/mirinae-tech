@@ -6,5 +6,5 @@ app_name = 'emotions'
 urlpatterns = [
     path('', views.create, name='create'),
     path('index/', views.index, name='index'),
-    # path('create/', views.create, name='create'),
+    path('call/', views.call, name='call'),
 ]

@@ -25,15 +25,17 @@ import json
 
 
 def create(request):
-    return render(request, 'create.html')
+    return render(request, 'emotions/create.html')
 
 def index(request):
-
+    return render(request, 'emotions/index.html')
+    
+def call(request):
     r = sr.Recognizer()
 
     with sr.Microphone() as source:
         # print('당신의 기분은 어떠신가요? : ')
-        playsound("output.mp3")
+        playsound("sleep.mp3")
         audio = r.listen(source)
 
         try:
@@ -51,36 +53,34 @@ def index(request):
         "Content-Type": "application/json"
     }
     content = text
-    # print(text)
     data = {
         "content": content,
     }
-    print(json)
-    print(json.dumps(data, indent=4, sort_keys=True))
+    # print(json)
+    # print(json.dumps(data, indent=4, sort_keys=True))
     response = requests.post(url, data=json.dumps(data), headers=headers)
     rescode = response.status_code
 
-    if(rescode == 200):
-        print (response.text)
-    else:
-        print("Error : " + response.text)
+    # if(rescode == 200):
+    #     print (response.text)
+    # else:
+    #     print("Error : " + response.text)
     text = response.json()
     context = {
         'text' : text,
         'data' : data,
     }
-    
+    # 터미널 결과창
+    # print(text)
+    print('사용자가 말한 내용 :', data['content'])
+    for line in text['sentences']:
+        print('문장 :', line['content'])
+        if line['sentiment'] == 'positive':
+            print('이 감정은 긍정적으로 판단됩니다.')
+        elif line['sentiment'] == 'negative':
+            print('이 감정은 부정적으로 판단됩니다.')
+        else:
+            print('이 감정은 중립적으로 판단됩니다.')
+        print('---------------------------------------------------')
+    print('전체 문장의 감정상태는', text['document']['sentiment'],'입니다.')   
     return render(request, 'emotions/index.html', context)
-
-def create(request):
-    if request.method == 'POST':
-        emotion_form = EmotionForm(request.POST)
-        if emotion_form.is_valid():
-            emotion_form.save()
-            return redirect('emotions:index')
-    else:
-        emotion_form = EmotionForm()
-    context = {
-        'emotion_form': emotion_form,
-    }
-    return render(request, 'emotions/create.html', context)
